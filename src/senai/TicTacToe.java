@@ -8,7 +8,6 @@ import java.io.*;
 public class TicTacToe {
 
 	public static Jogo jogo;
-	private static int modoDeJogo;
 	public static int count = 0;
 
 	public static String escolhaUsuario;
@@ -45,21 +44,21 @@ public class TicTacToe {
 
 		System.out.println(jogo.output());
 
-		while (!jogo.finalizou) {
+		while (!jogo.isFinalizou()) {
 
 			for (Jogador jogador : jogadores) {
 				jogador.rodada();
 				System.out.println("\n" + jogo.output());
 				count += 1;
 
-				if (jogo.finalizou) {
+				if (jogo.isFinalizou()) {
 					break;
 				}
 
 			}
 		}
 
-		if (jogo.desenho) {
+		if (jogo.isGradeCheia()) {
 
 			System.out.println("\n\tO Jogo empatou!");
 

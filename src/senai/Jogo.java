@@ -3,22 +3,43 @@ package senai;
 public class Jogo {
 
 	private int modoDeJogo = 0;
-
-	public boolean finalizou = false;
-	public boolean desenho = false;
-
-	public int tamanhoTabela;
-
+	private boolean finalizou = false;
+	private boolean gradeCheia = false;
+	private int tamanhoTabela;
 	private Celulas[] tabela;
 
 	public Jogo() {
 
 		this.tamanhoTabela = 3;
-		tabela = new Celulas[tamanhoTabela * tamanhoTabela];
+		tabela = new Celulas[this.tamanhoTabela * this.tamanhoTabela];
 
 		for (int i = 0; i < tabela.length; i++) {
 			tabela[i] = new Celulas();
 		}
+	}
+
+	public boolean isGradeCheia() {
+		return gradeCheia;
+	}
+
+	public void setGradeCheia(boolean gradeCheia) {
+		this.gradeCheia = gradeCheia;
+	}
+
+	public boolean isFinalizou() {
+		return finalizou;
+	}
+
+	public void setFinalizou(boolean finalizou) {
+		this.finalizou = finalizou;
+	}
+
+	public int getTamanhoTabela() {
+		return this.tamanhoTabela;
+	}
+
+	public void setTamanhoTabela(int tamanhoTabela) {
+		this.tamanhoTabela = tamanhoTabela;
 	}
 
 	public int getModoDeJogo() {
@@ -57,13 +78,13 @@ public class Jogo {
 		boolean colunaVencedora;
 		boolean giagonalVencedora;
 
-		Celulas[][] rows = new Celulas[tamanhoTabela][tamanhoTabela];
-		Celulas[][] columns = new Celulas[tamanhoTabela][tamanhoTabela];
-		Celulas[][] diagonals = new Celulas[2][tamanhoTabela]; 
+		Celulas[][] rows = new Celulas[this.tamanhoTabela][this.tamanhoTabela];
+		Celulas[][] columns = new Celulas[this.tamanhoTabela][this.tamanhoTabela];
+		Celulas[][] diagonals = new Celulas[2][this.tamanhoTabela]; 
 
 		// SE TODAS AS CELUAS ESTIVEREM PREENCHIDAS, FINAL DE JOGO
 		gradePreenchida = true;
-		for (int i = 0; i < tamanhoTabela * tamanhoTabela; i++) {
+		for (int i = 0; i < this.tamanhoTabela * this.tamanhoTabela; i++) {
 
 			if (tabela[i].vazio) {
 				gradePreenchida = false;
@@ -72,34 +93,34 @@ public class Jogo {
 
 		if (gradePreenchida) {
 			finalizou = true;
-			desenho = true;
+			gradeCheia = true;
 		}
 
-		for (int i = 0; i < tamanhoTabela; i++) {
-			for (int j = 0; j < tamanhoTabela; j++) {
+		for (int i = 0; i < this.tamanhoTabela; i++) {
+			for (int j = 0; j < this.tamanhoTabela; j++) {
 
-				rows[i][j] = tabela[tamanhoTabela * i + j];
+				rows[i][j] = tabela[this.tamanhoTabela * i + j];
 			}
 		}
 
-		for (int i = 0; i < tamanhoTabela; i++) {
-			for (int j = 0; j < tamanhoTabela; j++) {
+		for (int i = 0; i < this.tamanhoTabela; i++) {
+			for (int j = 0; j < this.tamanhoTabela; j++) {
 
-				columns[i][j] = tabela[i + tamanhoTabela * j];
+				columns[i][j] = tabela[i + this.tamanhoTabela * j];
 			}
 		}
 
 		for (int i = 0; i < 2; i++) {
 			if (i == 0) {
-				for (int j = 0; j < tamanhoTabela; j++) {
+				for (int j = 0; j < this.tamanhoTabela; j++) {
 
-					diagonals[i][j] = tabela[(tamanhoTabela + 1) * j];
+					diagonals[i][j] = tabela[(this.tamanhoTabela + 1) * j];
 
 				}
 			} else {
-				for (int j = 0; j < tamanhoTabela; j++) {
+				for (int j = 0; j < this.tamanhoTabela; j++) {
 
-					diagonals[i][j] = tabela[(tamanhoTabela - 1) * (j + 1)];
+					diagonals[i][j] = tabela[(this.tamanhoTabela - 1) * (j + 1)];
 				}
 			}
 		}
@@ -128,7 +149,7 @@ public class Jogo {
 
 			if (linhaVencedora) {
 				finalizou = true;
-				desenho = false;
+				gradeCheia = false;
 			}
 		}
 
@@ -156,7 +177,7 @@ public class Jogo {
 
 			if (colunaVencedora) {
 				finalizou = true;
-				desenho = false;
+				gradeCheia = false;
 			}
 		}
 
@@ -184,7 +205,7 @@ public class Jogo {
 
 			if (giagonalVencedora) {
 				finalizou = true;
-				desenho = false;
+				gradeCheia = false;
 			}
 		}
 
@@ -201,7 +222,7 @@ public class Jogo {
 		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		String map = "\n";
 
-		for (int i = 1; i < tamanhoTabela; i++) {
+		for (int i = 1; i < this.tamanhoTabela; i++) {
 
 			top += i + "  ";
 
@@ -213,7 +234,7 @@ public class Jogo {
 			divider += "+---";
 		}
 
-		top += tamanhoTabela + " \n";
+		top += this.tamanhoTabela + " \n";
 		fill += "\n";
 		divider += "\n";
 		map += top + fill;
@@ -223,7 +244,7 @@ public class Jogo {
 
 				meat += alphabet.substring(row - 1, row) + " " + tabela[3 * (row - 1) + (column - 1)].output();
 
-				for (int i = 2; i < tamanhoTabela + 1; i++) {
+				for (int i = 2; i < this.tamanhoTabela + 1; i++) {
 
 					meat += " | " + tabela[3 * (row - 1) + (i - 1)].output();
 				}
@@ -234,7 +255,7 @@ public class Jogo {
 
 		map += meat + fill;
 
-		for (int row = 2; row < tamanhoTabela + 1; row++) {
+		for (int row = 2; row < this.tamanhoTabela + 1; row++) {
 
 			map += divider;
 			map += fill;
@@ -242,11 +263,11 @@ public class Jogo {
 			for (int column = 1; column < 2; column++) {
 
 				meat = "\t\t" + alphabet.substring(row - 1, row) + " "
-						+ tabela[tamanhoTabela * (row - 1) + (column - 1)].output();
+						+ tabela[this.tamanhoTabela * (row - 1) + (column - 1)].output();
 
-				for (int i = column + 1; i < tamanhoTabela + 1; i++) {
+				for (int i = column + 1; i < this.tamanhoTabela + 1; i++) {
 
-					meat += " | " + tabela[tamanhoTabela * (row - 1) + (i - 1)].output();
+					meat += " | " + tabela[this.tamanhoTabela * (row - 1) + (i - 1)].output();
 				}
 			}
 

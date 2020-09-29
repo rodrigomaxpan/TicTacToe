@@ -4,7 +4,7 @@ public class Celulas {
 
 	// Essa classe representa uma eelula do jogo
 
-	public String conteudo;
+	private String conteudo;
 	public boolean vazio;
 
 	public Celulas() {

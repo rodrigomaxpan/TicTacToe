@@ -17,15 +17,15 @@ public class Jogador {
 
 	public void rodada() {
 
-		jogada = true;
+		this.jogada = true;
 
 		if (tipo == "COMPUTADOR") {
 			System.out.print("\tVez do computador ...");
-			delay(1000, TicTacToe.jogo.tamanhoTabela);
+			delay(1000, TicTacToe.jogo.getTamanhoTabela());
 
 			while (jogada) {
 				indice = (int) Math
-						.round((TicTacToe.jogo.tamanhoTabela * TicTacToe.jogo.tamanhoTabela - 1) * Math.random());
+						.round((TicTacToe.jogo.getTamanhoTabela() * TicTacToe.jogo.getTamanhoTabela() - 1) * Math.random());
 				marcarCelula(indice, TicTacToe.jogo);
 			}
 
@@ -49,9 +49,9 @@ public class Jogador {
 
 					}
 
-					indice = TicTacToe.jogo.tamanhoTabela * (linha - 1) + (coluna - 1);
+					indice = TicTacToe.jogo.getTamanhoTabela() * (linha - 1) + (coluna - 1);
 
-					if (indice > (TicTacToe.jogo.tamanhoTabela * TicTacToe.jogo.tamanhoTabela) - 1 || indice < 0) {
+					if (indice > (TicTacToe.jogo.getTamanhoTabela() * TicTacToe.jogo.getTamanhoTabela()) - 1 || indice < 0) {
 
 						TicTacToe.escolhaUsuario = TicTacToe
 								.getInput("Essa não é uma celula válido! Escolha outro celula: ");
@@ -93,7 +93,7 @@ public class Jogador {
 			output = (escolhaUsuario.substring(0, 2).matches("[1-2][0-9]")
 					&& escolhaUsuario.substring(2, 3).matches("[a-zA-Z]"));
 
-			if (Integer.parseInt(escolhaUsuario.substring(0, 2)) > TicTacToe.jogo.tamanhoTabela) {
+			if (Integer.parseInt(escolhaUsuario.substring(0, 2)) > TicTacToe.jogo.getTamanhoTabela()) {
 				output = false;
 			}
 		}
